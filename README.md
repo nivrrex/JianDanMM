@@ -6,11 +6,13 @@ Get jandan.net ooxx picture.
 
 
 ## 更新
-2013/9/10 V 1.0，直接使用net/http标准库进行抓取
+2013/9/10  V1.0  直接使用net/http标准库进行抓取。
 
-2015/6/17 V 2.0，由于煎蛋妹妹改版后，单纯抓页面会出现403错误。所以使用watir，模拟浏览器进行抓取
+2015/6/17  V2.0  由于煎蛋妹妹改版后，单纯抓页面会出现403错误。所以使用watir，模拟浏览器进行抓取。
 
-2015/6/17 V 3.0，发现watir有时会Timeout error，重新抓包后发现，添加User-Agent的head标识即可正常返回200 OK。参考http://augustl.com/blog/2010/ruby_net_http_cheat_sheet
+2015/6/17  V2.1  发现watir有时会Timeout error，重新抓包后发现，添加User-Agent的head标识即可正常返回200 OK，重新使用net/http实现。
+
+参考https://github.com/augustl/net-http-cheat-sheet
 
 
 ## 备注
