@@ -102,7 +102,7 @@ f_to = File::open("support.result.log","w")
     puts
 
     html.scan(/<li id="comment-\d*?">.*?<img src="(.*?)".*?<span id="cos_support-\d*?">(\d*?)<\/span>.*?<span id="cos_unsupport-\d*?">(.*?)<\/span>.*?<\/li>/m) do |data|
-        result = data[0] + " " + get_file_name2(url) + " " + data[1] + " " + data[2]
+        result = data[0] + " " + get_file_name2(data[0]) + " " + data[1] + " " + data[2]
         puts result
         f_to.puts(result)
         get_jpg (data[0])
