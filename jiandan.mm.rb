@@ -85,29 +85,31 @@ def get_jpg(url)
     puts "Write OK ... #{filename}"
 end
 
-1001.upto (1430) do |i|
+
+f_to = File::open("support.result.csv","w")
+900.upto (1430) do |i|
     uri = URI.parse('http://jandan.net/ooxx/page-' + i.to_s())  
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Get.new(uri.request_uri)
     request.initialize_http_header({"User-Agent" => "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"})
-    
+
     response = http.request(request)
     head = response.code
-    html = response.body
-        
+    html = response.body    
+
     puts
-    puts "reading " + 'http://jandan.net/ooxx/page-' + i.to_s() + " *** Return Code " + head
+    puts "reading " + 'http://jandan.net/ooxx/page-' + i.to_s() + "   :   Return Code -- " + head
     puts
 
-    html.scan(/<p><img src="(.*?)" \/>/) do |data|
-        data.each do |file_path|
-            puts data
-            STDOUT.flush
-            get_jpg (file_path)
-            STDOUT.flush
-            sleep Random.rand(0.3..0.5)
-        end
+    html.scan(/<li id="comment-\d*?">.*?<img src="(.*?)".*?<span id="cos_support-\d*?">(\d*?)<\/span>.*?<span id="cos_unsupport-\d*?">(.*?)<\/span>.*?<\/li>/m) do |data|
+        result = data[0] + " " + get_file_name2(url) + " " + data[1] + " " + data[2]
+        puts result
+        f_to.puts(result)
+        get_jpg (data[0])
+        sleep Random.rand(0.01..0.05)
+        STDOUT.flush
     end
     sleep Random.rand(0.8..1.0)
+    STDOUT.flush
 end
-
+f_to.close
