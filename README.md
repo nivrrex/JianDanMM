@@ -14,6 +14,7 @@ Get jandan.net ooxx picture.
 
 参考https://github.com/augustl/net-http-cheat-sheet
 
+2015/6/19  V2.2  增加记录图片的支持和反对记录数据log，同时完善对gif图片的提取
 
 ## 备注
 脚本执行目录需手动新建test文件夹

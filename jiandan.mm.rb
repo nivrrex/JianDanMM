@@ -86,7 +86,7 @@ def get_jpg(url)
 end
 
 
-f_to = File::open("support.result.csv","w")
+f_to = File::open("support.result.log","w")
 900.upto (1430) do |i|
     uri = URI.parse('http://jandan.net/ooxx/page-' + i.to_s())  
     http = Net::HTTP.new(uri.host, uri.port)
