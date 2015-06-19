@@ -22,7 +22,23 @@ def get_file_name2(url)
     end
 end
 
-def get_jpg(url)
+def scale(scale)
+    if scale >= 10 then
+        level = "very"
+    elsif scale >= 5 then
+        level = "high"
+    elsif scale >= 1.5 then
+        level = "good"
+    elsif scale >= 0.75 then
+        level = "normal"
+    elsif scale < 0.75 then
+        level = "bad"
+    end
+    return level
+end
+
+def get_jpg(url , support , unsupport)
+    scale = support.to_f / unsupport.to_f
     begin
         redirect = 1
         redirecting = false 
@@ -74,7 +90,7 @@ def get_jpg(url)
     filename = get_file_name2(url)
  
     begin
-        open("./test/" + filename, "wb") do |file|
+        open("./test/" + scale(scale) + "---" + filename, "wb") do |file|
             file.write(res.body)
         end
     rescue
@@ -102,10 +118,10 @@ f_to = File::open("support.result.log","w")
     puts
 
     html.scan(/<li id="comment-\d*?">.*?<img src="(.*?)".*?<span id="cos_support-\d*?">(\d*?)<\/span>.*?<span id="cos_unsupport-\d*?">(.*?)<\/span>.*?<\/li>/m) do |data|
-        result = data[0] + " " + get_file_name2(data[0]) + " " + data[1] + " " + data[2]
+        result = data[0] + " " + get_file_name2(data[0]) + " " + data[1] + " " + data[2]  + " " + scale(data[1].to_f / data[2].to_f)
         puts result
         f_to.puts(result)
-        get_jpg (data[0])
+        get_jpg(data[0] , data[1] , data[2])
         sleep Random.rand(0.01..0.05)
         STDOUT.flush
     end
