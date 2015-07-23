@@ -20,5 +20,7 @@ Get jandan.net ooxx picture.
 
 2015/7/23  V3.0  增加Golang语言实现，同时完美支持jpg和gif文件，前期Ruby版本的gif文件下载的是缩略图
 
+2015/7/23  V3.1  jandan.net对妹子图的抓取，每隔50个页面会重置，此时403错误。通过变更User-Agent可以解决该问题
+
 ## 备注
 脚本执行目录需手动新建test文件夹

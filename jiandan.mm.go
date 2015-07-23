@@ -14,13 +14,13 @@ import (
 )
 
 
-func get_mm_url(url string) (html string,err error){
+func get_mm_url(url string,user_agent string) (html string,err error){
 	client := new(http.Client)
 	req, err := http.NewRequest("GET", url , nil)	
 	if err != nil {
 		// handle error
 	}
-	req.Header.Add("User-Agent", "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.6.2000 Chrome/30.0.1599.101 Safari/537.36")
+	req.Header.Add("User-Agent", user_agent)
 	
 	resp, err := client.Do(req)
 	if err != nil {
@@ -95,8 +95,8 @@ func main() {
     }
     log.SetOutput(fo)
 
-	for i := 948; i < 1474; i++ {
-		body , _ := get_mm_url("http://jandan.net/ooxx/page-" + strconv.Itoa(i))
+	for i := 900; i < 1475; i++ {
+		body , _ := get_mm_url("http://jandan.net/ooxx/page-" + strconv.Itoa(i),"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.6.2000 Chrome/30.0.1599.101 Safari/537.37" + strconv.Itoa(i))
 
 		fmt.Println()
 		log_str := "reading " + "http://jandan.net/ooxx/page-" + strconv.Itoa(i)
