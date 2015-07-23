@@ -60,7 +60,7 @@ func get_scale(scale float64)(level string){
     return level
 }
 
-func get_jpg(url string , file_name string,id string)(log string){
+func get_jpg(url string , file_name string,id string,support string,unsupport string,rank string)(log string){
 	resp, err := http.Get(url)
 	if err != nil {
 		log = fmt.Sprintf("Http Error:%s %s %s\n", id , err , url)
@@ -77,7 +77,7 @@ func get_jpg(url string , file_name string,id string)(log string){
 		return
     }
     f.WriteString(string(body))
-	log = fmt.Sprintf("Write OK ... %s %s\n" , id , url)
+	log = fmt.Sprintf("Write OK ... %s %s %s %s %s %s\n" , id , url,file_name,support,unsupport,rank)
 	fmt.Print(log)
 
 	defer resp.Body.Close()
@@ -171,7 +171,7 @@ func main() {
 				url_hash[id]["FileName"]  = rank + "---" + url_hash[id]["FileName"]
 				
 				//write the picture
-				log_str := get_jpg(url_hash[id]["URL"],url_hash[id]["FileName"],id)
+				log_str := get_jpg(url_hash[id]["URL"],url_hash[id]["FileName"],id,support,unsupport,rank)
 				log.Print(log_str)
 
 				r := rand.New(rand.NewSource(time.Now().UnixNano()))
