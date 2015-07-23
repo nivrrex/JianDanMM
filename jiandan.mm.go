@@ -99,7 +99,9 @@ func main() {
 		body , _ := get_mm_url("http://jandan.net/ooxx/page-" + strconv.Itoa(i))
 
 		fmt.Println()
-		fmt.Println("reading " + "http://jandan.net/ooxx/page-" + strconv.Itoa(i))
+		log_str := "reading " + "http://jandan.net/ooxx/page-" + strconv.Itoa(i)
+		fmt.Println(log_str)
+		log.Print(log_str)
 		fmt.Println()
 		
 		reg := `(?m)comment-(\d*?)">\d*?</a></span><p>.*?\s*<img src="([a-zA-z]+://[^\s]+?)" /></p>`
@@ -180,7 +182,7 @@ func main() {
 			//fmt.Printf("%v",line)
 		}
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
-		time.Sleep(time.Duration(800 + r.Intn(1500)) * time.Millisecond)
+		time.Sleep(time.Duration(1800 + r.Intn(1500)) * time.Millisecond)
 	}
 	
 	//for k, v := range url_hash {
