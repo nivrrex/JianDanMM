@@ -18,5 +18,7 @@ Get jandan.net ooxx picture.
 
 2015/6/19  V2.3  根据支持和反对的比例，对保存的文件名添加“very\high\good\normal\bad”标识符
 
+2015/7/23  V3.0  增加Golang语言，同时完美支持jpg和gif文件，前期Ruby版本的gif文件下载的是缩略图（文件下载在exe目录下）
+
 ## 备注
 脚本执行目录需手动新建test文件夹
