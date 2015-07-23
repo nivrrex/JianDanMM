@@ -20,7 +20,7 @@ func get_mm_url(url string) (html string,err error){
 	if err != nil {
 		// handle error
 	}
-	req.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko")
+	req.Header.Add("User-Agent", "User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.6.2000 Chrome/30.0.1599.101 Safari/537.36")
 	
 	resp, err := client.Do(req)
 	if err != nil {
@@ -95,7 +95,7 @@ func main() {
     }
     log.SetOutput(fo)
 
-	for i := 900; i < 1474; i++ {
+	for i := 948; i < 1474; i++ {
 		body , _ := get_mm_url("http://jandan.net/ooxx/page-" + strconv.Itoa(i))
 
 		fmt.Println()
