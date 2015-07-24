@@ -104,7 +104,7 @@ func main() {
 		log.Print(log_str)
 		fmt.Println()
 		
-		reg := `(?m)comment-(\d*?)">\d*?</a></span><p>.*?\s*<img src="([a-zA-z]+://[^\s]+?)" /></p>`
+		reg := `(?m)comment-(\d*?)">\d*?<\/a><\/span><p>.*?\s*<img src="([a-zA-z]+:\/\/[^\s]+?)" \/><\/p>`
 		regCom, _ := regexp.Compile(reg)
 		search := regCom.FindAllStringSubmatch(body, -1)
 		if search != nil {
@@ -125,7 +125,7 @@ func main() {
 			//fmt.Printf("%v",line)
 		}
 
-		reg = `(?m)comment-(\d*?)">\d*?</a></span><p>.*?\s*<img src="[a-zA-z]+://[^\s]+?" org_src="([a-zA-z]+://[^\s]+?)" o`
+		reg = `(?m)comment-(\d*?)">\d*?<\/a><\/span><p>.*?\s*<img src="[a-zA-z]+:\/\/[^\s]+?" org_src="([a-zA-z]+:\/\/[^\s]+?)" o`
 		regCom, _ = regexp.Compile(reg)
 		search = regCom.FindAllStringSubmatch(body, -1)
 		if search != nil {
