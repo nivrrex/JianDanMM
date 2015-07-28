@@ -13,7 +13,6 @@ import (
 	"log"
 )
 
-
 func get_mm_url(url string,user_agent string) (html string,err error){
 	client := new(http.Client)
 	req, err := http.NewRequest("GET", url , nil)	
@@ -21,15 +20,15 @@ func get_mm_url(url string,user_agent string) (html string,err error){
 		// handle error
 	}
 	req.Header.Add("User-Agent", user_agent)
-	
 	resp, err := client.Do(req)
 	if err != nil {
 		// handle error
 	}
-	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)	
+	resp.Body.Close()
 
 	html = string(body)
+
 	return html,err
 }
 
@@ -69,7 +68,8 @@ func get_jpg(url string , file_name string,id string,support string,unsupport st
 		return
 	}
 	body, err := ioutil.ReadAll(resp.Body)
-	
+	resp.Body.Close()
+
     f,err:=os.Create(file_name)
     if err != nil {
 		log = fmt.Sprintf("Write Error:%s %s %s\n" , id , err , url)
@@ -77,11 +77,11 @@ func get_jpg(url string , file_name string,id string,support string,unsupport st
 		return
     }
     f.WriteString(string(body))
+    f.Close()
+
 	log = fmt.Sprintf("Write OK ... %s %s %s %s %s %s\n" , id , url,file_name,support,unsupport,rank)
 	fmt.Print(log)
 
-	defer resp.Body.Close()
-    defer f.Close()
 	return log
 }
 
@@ -95,7 +95,7 @@ func main() {
     }
     log.SetOutput(fo)
 
-	for i := 900; i < 1475; i++ {
+	for i := 1050; i < 1475; i++ {
 		body , _ := get_mm_url("http://jandan.net/ooxx/page-" + strconv.Itoa(i),"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.6.2000 Chrome/30.0.1599.101 Safari/537.37" + strconv.Itoa(i))
 
 		fmt.Println()
@@ -184,13 +184,13 @@ func main() {
 		r := rand.New(rand.NewSource(time.Now().UnixNano()))
 		time.Sleep(time.Duration(1800 + r.Intn(1500)) * time.Millisecond)
 	}
-	
+	fo.Close()
+
 	//for k, v := range url_hash {
 	//     for i, j := range v {
 	//			fmt.Print(k, " " , i , " " , j)
 	//     }
 	//	  fmt.Println()
 	//}
-	defer fo.Close()
 
 }
