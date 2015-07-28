@@ -11,6 +11,7 @@ import (
 	"time"
 	"math/rand"
 	"log"
+	"encoding/json"
 )
 
 func get_mm_url(url string,user_agent string) (html string,err error){
@@ -85,17 +86,42 @@ func get_jpg(url string , file_name string,id string,support string,unsupport st
 	return log
 }
 
+type ConfigJson struct {
+    StartPage  string
+    EndPage    string
+}
+
 
 func main() {
+    var configJson ConfigJson
+	f_config,err := os.Open("config.json")
+    if err != nil {
+		// handle error
+    }
+	input, err := ioutil.ReadAll(f_config)
+    if err != nil {
+		// handle error
+    }
+    err = json.Unmarshal(input, &configJson)
+    if err != nil {
+		// handle error
+    }
+	f_config.Close()
+    startpage,_ := strconv.Atoi(configJson.StartPage)
+    endpage,_ := strconv.Atoi(configJson.EndPage)
 
+	fmt.Println(startpage,endpage)
+	
+	return
+	
 	url_hash := make(map[string]map[string]string)
 	fo, err := os.Create("log_result.log")
     if err != nil {
 		// handle error
     }
     log.SetOutput(fo)
-
-	for i := 1050; i < 1475; i++ {
+	
+	for i := startpage; i < endpage+1; i++ {
 		body , _ := get_mm_url("http://jandan.net/ooxx/page-" + strconv.Itoa(i),"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Maxthon/4.4.6.2000 Chrome/30.0.1599.101 Safari/537.37" + strconv.Itoa(i))
 
 		fmt.Println()
