@@ -18,14 +18,16 @@ func get_mm_url(url string, user_agent string) (html string, err error) {
 	client := new(http.Client)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		log = fmt.Sprintf("Http Get Error:%s   %s\n", err, url)
+		log := fmt.Sprintf("Http Get Error:%s   %s\n", err, url)
 		fmt.Print(log)
 		return
 	}
 	req.Header.Add("User-Agent", user_agent)
 	resp, err := client.Do(req)
 	if err != nil {
-		// handle error
+		log := fmt.Sprintf("Http Get Error:%s   %s\n", err, url)
+		fmt.Print(log)
+		return
 	}
 	body, err := ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
