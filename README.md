@@ -1,4 +1,4 @@
-﻿# About JianDan MM
+# About JianDan MM
 
 Get jandan.net ooxx picture.
 
@@ -26,6 +26,7 @@ Get jandan.net ooxx picture.
 
 2015/7/28  V3.3  Golang实现部分优化，同时可以通过config.json设置开始及结束的抓取页面,避免反复编译
 
+2015/8/26  V3.4  对Golang实现的部分错误处理进行完善
+
 ## 备注
 ~~脚本执行目录需手动新建test文件夹，~~目前文件下载到脚本当前目录
-
