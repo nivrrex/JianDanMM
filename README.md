@@ -30,4 +30,3 @@ Get jandan.net ooxx picture.
 
 ## 备注
 ~~脚本执行目录需手动新建test文件夹，~~目前文件下载到脚本当前目录
-

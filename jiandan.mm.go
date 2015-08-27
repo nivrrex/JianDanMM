@@ -18,14 +18,14 @@ func get_mm_url(url string, user_agent string) (html string, err error) {
 	client := new(http.Client)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		log := fmt.Sprintf("Http Get Error:%s   %s\n", err, url)
+		log := fmt.Sprintf("Http Get url Error : %s   %s\n", err, url)
 		fmt.Print(log)
 		return
 	}
 	req.Header.Add("User-Agent", user_agent)
 	resp, err := client.Do(req)
 	if err != nil {
-		log := fmt.Sprintf("Http Get Error:%s   %s\n", err, url)
+		log := fmt.Sprintf("Http Get url Error : %s   %s\n", err, url)
 		fmt.Print(log)
 		return
 	}
@@ -67,7 +67,7 @@ func get_scale(scale float64) (level string) {
 func get_jpg(url string, file_name string, id string, support string, unsupport string, rank string) (log string) {
 	resp, err := http.Get(url)
 	if err != nil {
-		log = fmt.Sprintf("Http Error:%s %s %s\n", id, err, url)
+		log = fmt.Sprintf("Http get jpg Error:%s %s %s\n", id, err, url)
 		fmt.Print(log)
 		// handle error
 		return
@@ -77,7 +77,7 @@ func get_jpg(url string, file_name string, id string, support string, unsupport 
 
 	f, err := os.Create(file_name)
 	if err != nil {
-		log = fmt.Sprintf("Write Error:%s %s %s\n", id, err, url)
+		log = fmt.Sprintf("Write jpg Error:%s %s %s\n", id, err, url)
 		fmt.Print(log)
 		return
 	}
@@ -219,8 +219,9 @@ func main() {
 	//for k, v := range url_hash {
 	//     for i, j := range v {
 	//			fmt.Println(k, " " , i , " " , j)
+	//          fmt.Println(k, " " , i , " " , j)
 	//     }
-	//	  fmt.Println()
+	//    fmt.Println()
 	//}
 
 }
