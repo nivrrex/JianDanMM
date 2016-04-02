@@ -218,6 +218,7 @@ func main() {
 
 	//for k, v := range url_hash {
 	//     for i, j := range v {
+	//			fmt.Println(k, " " , i , " " , j)
 	//          fmt.Println(k, " " , i , " " , j)
 	//     }
 	//    fmt.Println()
