@@ -15,12 +15,15 @@ def get_file_name(url):
         return None
 
 def get_file_name2(url):
-    result = url.replace("https://","")
-    result = result.replace("http://","")
-    result = result.replace("/","-")
-    result = result.replace("?","")
-    if result != None:
-        return result
+    if url != None :
+        result = url.replace("https://","")
+        result = result.replace("http://","")
+        result = result.replace("/","-")
+        result = result.replace("?","")
+        if result != None:
+            return result
+        else:
+            return None
     else:
         return None
 
