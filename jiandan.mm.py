@@ -76,12 +76,14 @@ def get_jpg(id, url, support, unsupport):
 def get_jiandan_mm_pic(page_num):
     url = 'http://jandan.net/ooxx/page-' + str(page_num)
     html = pyq(url)
+    print('reading ...  http://jandan.net/ooxx/page-{0}\n'.format(page_num))
     #print(html)
 
     hash_pic_message = {}
     #获取图片地址
     for element in html('li div div.row div.text'):
-        img = pyq(element)('img')
+        img = pyq(element).find('img')
+        #img = pyq(element)('img')
         if img != None:
             id = pyq(element)('span a').text()
             id = id.replace("vote-","")
