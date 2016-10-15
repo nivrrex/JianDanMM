@@ -143,8 +143,8 @@ if __name__=="__main__":
             for url in url_index["URL"]:
                 get_jpg(url_index["ID"],url,url_index["Support"],url_index["UnSupport"])
             time.sleep(0.2)
+        print("\n")
         time.sleep(0.8)
-
 
 
 
