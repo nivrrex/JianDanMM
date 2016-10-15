@@ -42,7 +42,10 @@ def get_scale(scale):
 
 
 def get_jpg(id, url, support, unsupport):
-    scale = float(support) / float(unsupport)
+    if unsupport != "0":
+        scale = float(support) / float(unsupport)
+    else:
+        scale = 0.0
     rank = get_scale(scale)
 
     #获取具体图片并写入文件
@@ -122,7 +125,10 @@ def get_jiandan_mm_pic(page_num):
             hash_pic_message[id]["Support"] = support
             hash_pic_message[id]["UnSupport"] = unsupport
             
-            scale =  float(support) / float(unsupport)
+            if unsupport != "0":
+                scale = float(support) / float(unsupport)
+            else:
+                scale = 0.0
             rank = get_scale(scale)
             hash_pic_message[id]["Scale"] = scale
             hash_pic_message[id]["Rank"] = rank

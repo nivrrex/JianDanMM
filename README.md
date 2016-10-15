@@ -34,5 +34,8 @@ Get jandan.net ooxx picture.
 
 Windows系统可以在 http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml 下载lxml库
 
+2016/10/16  V5.1   Python语言实现修改，增加部分错误验证。
+
+
 ## 备注
 ~~脚本执行目录需手动新建test文件夹，~~ 目前文件直接下载到脚本当前目录
