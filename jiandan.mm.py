@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 import requests
-import re,string
-import json
-import time
-
 from pyquery import PyQuery as pyq
 from lxml import etree
+import re
+import json
+import time
 
 def get_file_name(url):
     pattern = re.compile(r'http.*//(.*)')
@@ -43,8 +42,7 @@ def get_jpg(id, url, support, unsupport):
     scale = float(support) / float(unsupport)
     rank = get_scale(scale)
 
-    #获取具体图片
-    ##############
+    #获取具体图片并写入文件
     pic_body = ""
     try:
         r = requests.get(url)
@@ -58,7 +56,7 @@ def get_jpg(id, url, support, unsupport):
         pass
 
     filename = get_file_name2(url)
-    filepath = ("./test/{0}---{1}").format(rank,filename)
+    filepath = ("./{0}---{1}").format(rank,filename)
 
     try:
         f = open(filepath,"wb")
@@ -81,6 +79,7 @@ def get_jiandan_mm_pic(page_num):
     #print(html)
 
     hash_pic_message = {}
+    #获取图片地址
     for element in html('li div div.row div.text'):
         img = pyq(element)('img')
         if img != None:
@@ -96,20 +95,18 @@ def get_jiandan_mm_pic(page_num):
                     url = img(t).attr('src')
                     hash_pic_message[id]['URL'].append(url)
                     hash_pic_message[id]['FileName'].append(get_file_name2(url))
-    #            print(pyq(vvv)('img').attr('src'))
             else:
                 for t in img:
                     url = img(t).attr('org_src')
                     hash_pic_message[id]['URL'].append(url)
                     hash_pic_message[id]['FileName'].append(get_file_name2(url))
-    #            print(pyq(vvv)('img').attr('org_src'))
-
+    
+    #获取图片ID和评级
     for element in html('li div div.row div.vote'):
         id = pyq(element).attr('id')
         id = id.replace("vote-","")
         
         vote = pyq(element).text()
-        #hash_pic_message[id]['vote'] = vote
 
         reg_vote = 'OO \[ (\d.*) \] XX \[ (\d.*) \]'
         pattern = re.compile(reg_vote)
@@ -129,6 +126,24 @@ def get_jiandan_mm_pic(page_num):
         #print(value)
         pass
     return hash_pic_message.values()
+
+if __name__=="__main__":
+    #reading config.json file
+    f = open('config.json','r')
+    data = json.load(f)
+    startpage = data['startpage']
+    endpage = data['endpage']
+
+    for page in range(int(startpage),int(endpage)):
+        for url_index in get_jiandan_mm_pic(page):
+            #print (url_index,"\n")
+#            print(url_index["URL"][0])
+            for url in url_index["URL"]:
+                get_jpg(url_index["ID"],url,url_index["Support"],url_index["UnSupport"])
+            time.sleep(0.2)
+        time.sleep(0.8)
+
+
 
 
 
@@ -188,21 +203,3 @@ def get_jiandan_mm_pic(page_num):
 #        pass
 #    return hash_pic_message.values()
 ##################################################################
-
-
-if __name__=="__main__":
-    #reading config.json file
-    f = open('config.json','r')
-    data = json.load(f)
-    startpage = data['startpage']
-    endpage = data['endpage']
-
-    for page in range(int(startpage),int(endpage)):
-        for url_index in get_jiandan_mm_pic(page):
-            #print (url_index,"\n")
-#            print(url_index["URL"][0])
-            for url in url_index["URL"]:
-                get_jpg(url_index["ID"],url,url_index["Support"],url_index["UnSupport"])
-            time.sleep(0.2)
-        time.sleep(0.8)
-

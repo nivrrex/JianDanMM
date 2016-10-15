@@ -30,9 +30,9 @@ Get jandan.net ooxx picture.
 
 2016/4/2    V4.0   增加Python语言实现，使用requests库，实现确实很简单。目前发现如果一个回复中，有多个图片的，可能存在遗漏，待更新。
 
-2016/10/15  V5.0   Python语言实现，改用pyquery(lxml)库，同时实现一个回复中多个图片的下载。（需在脚本目录下创建test文件夹）
+2016/10/15  V5.0   Python语言实现，改用pyquery(lxml)库，同时实现一个回复中多个图片的下载。
 
 Windows系统可以在 http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml 下载lxml库
 
 ## 备注
-~~脚本执行目录需手动新建test文件夹，~~目前文件下载到脚本当前目录
+~~脚本执行目录需手动新建test文件夹，~~ 目前文件直接下载到脚本当前目录
