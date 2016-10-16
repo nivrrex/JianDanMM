@@ -77,12 +77,14 @@ def get_jpg(id, url, support, unsupport):
         f.close()
 
     print("Write OK ... {0}   {1}\t{2}\t{3}".format(id,filename,support,unsupport))
+    sys.stdout.flush()
 
 
 def get_jiandan_mm_pic(page_num):
     url = 'http://jandan.net/ooxx/page-' + str(page_num)
     html = pyq(url)
     print('reading ...  http://jandan.net/ooxx/page-{0}\n'.format(page_num))
+    sys.stdout.flush()
     #print(html)
 
     hash_pic_message = {}
