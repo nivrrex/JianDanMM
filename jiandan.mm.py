@@ -5,6 +5,7 @@ from lxml import etree
 import re
 import json
 import time
+import sys
 
 def get_file_name(url):
     pattern = re.compile(r'http.*//(.*)')
@@ -42,6 +43,9 @@ def get_scale(scale):
 
 
 def get_jpg(id, url, support, unsupport):
+    if url != None :
+        url = url.replace("//","http://")
+
     if unsupport != "0":
         scale = float(support) / float(unsupport)
     else:
@@ -94,7 +98,7 @@ def get_jiandan_mm_pic(page_num):
         #img = pyq(element)('img')
         if img != None:
             id = pyq(element)('span a').text()
-            id = id.replace("vote-","")
+            #id = id.replace("vote-","")
             hash_pic_message[id]={}
             hash_pic_message[id]['ID']=id
             hash_pic_message[id]['URL']=[]
@@ -110,12 +114,12 @@ def get_jiandan_mm_pic(page_num):
                     url = img(t).attr('org_src')
                     hash_pic_message[id]['URL'].append(url)
                     hash_pic_message[id]['FileName'].append(get_file_name2(url))
-    
+
     #获取图片ID和评级
-    for element in html('li div div.row div.vote'):
-        id = pyq(element).attr('id')
-        id = id.replace("vote-","")
-        
+    for element in html('li div div.row div.jandan-vote'):
+        id = pyq(element)('a').attr('data-id')
+        #id = id.replace("vote-","")
+
         vote = pyq(element).text()
 
         reg_vote = 'OO \[ (\d.*) \] XX \[ (\d.*) \]'
@@ -126,7 +130,7 @@ def get_jiandan_mm_pic(page_num):
             unsupport = result[0][1]
             hash_pic_message[id]["Support"] = support
             hash_pic_message[id]["UnSupport"] = unsupport
-            
+
             if unsupport != "0":
                 scale = float(support) / float(unsupport)
             else:
@@ -134,7 +138,8 @@ def get_jiandan_mm_pic(page_num):
             rank = get_scale(scale)
             hash_pic_message[id]["Scale"] = scale
             hash_pic_message[id]["Rank"] = rank
-            
+
+
     for value in hash_pic_message.values():
         #print(value)
         pass
